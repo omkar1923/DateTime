@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DATE</title>
+<style type="text/css">
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    border: 4px solid #555;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 40px;
+}
+
+#dt {
+    font-size: 120px;
+    color: #ff6600; /* Change to a different shade of orange */
+    -webkit-text-stroke: 2px red;
+    margin: 0;
+}
+
+#time {
+    font-size: 60px;
+    color: #3399ff; /* Blue */
+    margin: 0;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 id="dt">00/00/0000</h1>
+    <p id="time">00:00:00.000 AM</p>
+</div>
+<script type="text/javascript">
+
+function updateTime() {
+    let dt = document.getElementById("dt");
+    let time = document.getElementById("time");
+    let now = new Date();
+
+    // Date
+    let day = String(now.getDate()).padStart(2, '0');
+    let month = String(now.getMonth() + 1).padStart(2, '0');
+    let year = now.getFullYear();
+    dt.innerHTML = `${day}/${month}/${year}`;
+
+    // Time
+    let hours = now.getHours();
+    let meridiem = 'AM';
+    if (hours >= 12) {
+        meridiem = 'PM';
+    }
+    hours = hours % 12 || 12; // Convert to 12-hour format
+    let minutes = String(now.getMinutes()).padStart(2, '0');
+    let seconds = String(now.getSeconds()).padStart(2, '0');
+    let milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+    time.innerHTML = `${hours}:${minutes}:${seconds}.${milliseconds} ${meridiem}`;
+
+    // Update every 100 milliseconds
+    setTimeout(updateTime, 100);
+}
+
+updateTime();
+
+</script>
+
+</body>
+</html>
